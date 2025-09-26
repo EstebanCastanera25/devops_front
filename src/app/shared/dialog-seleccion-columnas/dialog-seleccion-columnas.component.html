@@ -1,0 +1,15 @@
+
+<h2 mat-dialog-title>Seleccionar columnas a filtrar</h2>
+
+<mat-dialog-content class="dialog-content">
+  <mat-selection-list class="cols-selection" (selectionChange)="onSelectionChange($event)">
+     <mat-list-option *ngFor="let campo of data.campos" [value]="campo" [selected]="estaSeleccionado(campo)">
+      {{ campo.label }}
+    </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions-center">
+  <button mat-flat-button color="primary" (click)="aplicar()">Aplicar</button>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+</mat-dialog-actions>

@@ -1,0 +1,64 @@
+
+.contenedorPaginas{
+    width: 100%;
+    margin: auto;
+  }
+
+
+  .informacion {
+    width: fit-content;
+    margin: auto;
+    //color: #3f51b5;
+    color: var(--color-primary-500-hover);
+    font-size: 14px;
+  }
+  #margenButton{
+    background-color: var(--cta-primary);
+    color: var(--cta-contrast);
+  }
+  #margenButton:hover{
+    background-color: var(--cta-primary-hover);
+    color: var(--cta-contrast);
+  }
+  mat-icon {
+    //color:   #80deea;
+   // color: red;
+   font-size: 16x;
+  }
+  
+  .borde {
+   // border-bottom: solid rgb(30, 180, 168);
+    border-bottom: solid var(--color-primary-500);
+    border-radius: 5px 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+  }
+  .contenedorButton{
+     width: 100%;
+  }
+  .botonRegistrar {
+  flex-shrink: 0;
+}
+  .border-bottom {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+.filtros{
+   display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.contador-dinamico{
+  align-items: center;  
+  max-width: 350px;
+  font-size: 14px;
+  color: var(--color-primary-700);
+  margin-left: 4px; 
+  margin-top: 10px;
+}

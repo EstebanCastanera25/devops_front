@@ -1,0 +1,311 @@
+@import '../../../assets/scss/style.scss';
+$search-h: 30px;
+
+/* ==================== Layout base ==================== */
+.contenedorPaginas {
+  width: 80%;
+  min-width: fit-content;
+}
+
+.full-width-table {
+  width: 100%;
+  margin-left: 0 auto;
+}
+
+.tablas {
+  font-family: Roboto, Helvetica Neue, sans-serif;
+  min-width: fit-content;
+}
+
+/* ==================== Tabla ==================== */
+.encabezado {  
+  /* reemplazado map-get($mat-primary, 500) por var(...) */
+  background: var(--color-primary-500) !important;
+  font-size: 14px;
+  color: var(--on-primary-500) !important;
+}
+
+tr:nth-child(even) {
+  background-color: var(--color-primary-100);
+}
+
+tr:hover {
+  background-color: var(--color-primary-200);
+}
+
+td {
+  width: max-content;
+
+  max-width: 35%;
+  min-width: fit-content;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+td:hover {
+  cursor: pointer;
+  overflow: auto;
+  text-overflow: inherit;
+}
+
+th.cdk-column-Acciones {
+  background-color: var(--color-primary-500);
+  color: var(--on-primary-500) !important;
+}
+
+.mat-elevation-z20 {
+  overflow-y: auto;
+  overflow-x: auto;
+  max-height: 65vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mat-mdc-row {
+  height: 36px;
+  margin: 0;
+  padding: 0;
+}
+
+.mat-mdc-cell {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* cambiar color de flecha de ordenado por contraste primario */
+::ng-deep .mat-sort-header-arrow {
+  color: var(--on-primary-500) !important;
+}
+
+/* ==================== Iconos/varios ==================== */
+mat-icon {
+  color: var(--color-primary-700);
+  height: 22px;
+}
+
+.Puntero {
+  cursor: pointer;
+}
+
+button {
+  text-align: center;
+  justify-content: center;
+  margin-left: 1em;
+}
+
+.mat-mdc-raised-button {
+  font-size: 10px;
+}
+
+.mat-mdc-paginator {
+  color: var(--color-primary-700);
+  font-size: 15px;
+}
+
+.mat-mdc-form-field {
+  color: var(--color-primary-500);
+}
+
+/* botonAcciones usa secundario (mantengo tu semantic variable success-500) */
+#botonAcciones {
+  background-color: var(--success-500);
+  margin: 10px;
+  font-size: 15px;
+  color: var(--on-primary-500);
+}
+
+#botonAcciones:hover {
+  background-color: var(--color-primary-100);
+}
+
+#descargar {
+  background-color: var(--color-primary-500);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+#descargar:hover {
+  background-color: var(--color-primary-100);
+}
+
+/* =======================================================
+   Toolbar RESPONSIVE con CSS GRID
+   Estructura: [ Título | Buscador (centrado) | Acciones ]
+   ======================================================= */
+/* ==================== Toolbar como GRID ==================== */
+.mat-toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-primary-200);
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+/* Título a la izquierda */
+.titulo {
+  margin: 0;
+  color: var(--color-text-500);    // púrpura oscuro, buen contraste
+  font-weight: 700;
+  font-size: clamp(18px, 3.2vw, 22px);
+  line-height: 1.15;
+  letter-spacing: 0.2px;
+
+  grid-column: 1 / 2;
+  justify-self: start;
+  min-width: 160px;
+}
+
+#buscador .mat-mdc-text-field-wrapper,
+#buscador .mat-mdc-form-field-flex,
+#buscador .mat-mdc-form-field-infix {
+  height: $search-h !important;
+  min-height: $search-h !important;
+  max-height: $search-h !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+}
+
+#buscador .mat-mdc-input-element {
+  height: $search-h !important;
+  line-height: $search-h !important;
+  padding: 0 8px !important;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+/* Ícono más chico para que no “empuje” la altura */
+#buscador .mat-mdc-form-field-icon-prefix .mat-icon,
+#buscador .mat-mdc-form-field-icon-suffix .mat-icon {
+  width: calc(#{$search-h} - 12px);
+  height: calc(#{$search-h} - 12px);
+  font-size: calc(#{$search-h} - 12px);
+  line-height: calc(#{$search-h} - 12px);
+}
+
+/* Exportar/Importar en columna 3 */
+.acciones-toolbar {
+  grid-column: 5 / 6;
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.customActionsButtons {
+  grid-column: 6 / 7;
+  display: flex;
+  gap: 4px;
+  justify-content: flex-start;
+}
+
+/* Descargar en columna 4 */
+#descargar {
+  grid-column: 3 / 4;
+  justify-self: start;
+}
+
+/* ======================================================= MOBILE ======================================================= */
+/* ==================== Mobile ==================== */
+/* Móvil: apilar todo y botones 100% */
+@media (max-width: 768px) {
+  :root { --col-max: clamp(100px, 42vw, 260px); }
+  .mat-toolbar {
+    grid-template-columns: auto 1fr;
+    grid-auto-rows: auto;
+    align-items: center;
+    justify-items: stretch;
+    gap: 8px;
+  }
+
+  .titulo {
+    grid-column: 1 / 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  #buscador .mat-mdc-text-field-wrapper,
+  #buscador .mat-mdc-form-field-flex,
+  #buscador .mat-mdc-form-field-infix,
+  #buscador .mat-mdc-input-element {
+    height: 20px !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+    line-height: 20px !important;
+  }
+
+  #buscador .mat-mdc-form-field-icon-prefix .mat-icon,
+  #buscador .mat-mdc-form-field-icon-suffix .mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .acciones-toolbar,
+  .customActionsButtons {
+    display: none !important;
+  }
+}
+
+/* ====== EXTRA SMALL: <= 480px ====== */
+@media (max-width: 480px) {
+  .mat-toolbar {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    grid-template-areas: "title" "search";
+    gap: 6px;
+  }
+  .titulo { grid-area: title; }
+  #buscador { grid-area: search; }
+  td, tr {
+    max-width: 100px;
+  }
+}
+
+:root {
+  --col-max: clamp(140px, 22vw, 360px);
+  --col-min: 120px;
+}
+
+@media (max-width: 1024px) {
+  :root { --col-max: clamp(120px, 28vw, 320px); }
+}
+@media (max-width: 768px) {
+  :root { --col-max: clamp(100px, 42vw, 260px); }
+  .mat-toolbar{
+    height: auto;
+  }
+}
+@media (max-width: 400px) {
+  :root { --col-max: clamp(90px, 60vw, 200px); }
+  .mat-toolbar{
+    height: auto;
+  }
+}
+
+/* === Aplicar a celdas y headers === */
+.mat-elevation-z20 .mat-mdc-table {
+  table-layout: auto;
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  max-width: var(--col-max);
+  min-width: var(--col-min);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-mdc-cell:hover {
+  overflow: auto;
+  text-overflow: inherit;
+}

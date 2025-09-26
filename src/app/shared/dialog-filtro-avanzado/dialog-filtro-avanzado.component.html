@@ -1,0 +1,131 @@
+<div class="dialog-full">
+  <h2 mat-dialog-title>Filtro Avanzado</h2>
+  <mat-dialog-content>
+     <form [formGroup]="form">
+      <div class="grid-columns">
+        <div *ngFor="let field of data.fields">
+          <!-- Rol -->
+          <ng-container *ngIf="field.key === 'rol'; else checkGenero">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ field.label }}</mat-label>
+              <mat-select [formControlName]="field.key">
+                <mat-option value="admin">Administrador</mat-option>
+                <mat-option value="usuario">Usuario</mat-option>
+                <mat-option value="colaborador">Colaborador</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+          <!-- Genero -->
+            <!-- Campo Género -->
+          <ng-template #checkGenero>
+            <ng-container *ngIf="field.key === 'genero' ; else redesSociales">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>{{ field.label }}</mat-label>
+                <mat-select [formControlName]="field.key">
+                  <mat-option value="masculino">Hombre</mat-option>
+                  <mat-option value="femenino">Mujer</mat-option>
+                  <mat-option value="otro">Otro</mat-option>
+                  <mat-option value="todos">Todos</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+          </ng-template>
+  
+          <ng-template #redesSociales>
+            <ng-container *ngIf="field.key === 'redesSociales' ; else checkBooleans">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>{{ field.label }}</mat-label>
+                <mat-select [formControlName]="field.key">
+                  <mat-option value="x">X</mat-option>
+                  <mat-option value="instagram">Instagram</mat-option>
+                  <mat-option value="tiktok">TikTok</mat-option>
+                  <mat-option value="facebook">Facebook</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+          </ng-template>
+  
+          <!-- Afiliado o Extranjero -->
+          <ng-template #checkBooleans>
+            <ng-container *ngIf="
+            field.key === 'asistio' || 
+            field.key === 'extranjero' || 
+            field.key === 'en_whatsaap' ||  
+            field.key === 'grupos' 
+            ; else edadTemplate">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>{{ field.label }}</mat-label>
+                <mat-select [formControlName]="field.key">
+                  <mat-option [value]="true">Sí</mat-option>
+                  <mat-option [value]="false">No</mat-option>
+                  <mat-option [value]=" ">Todos</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+          </ng-template>
+  
+          
+         <ng-template #edadTemplate>
+            <ng-container *ngIf="field.key === 'edad'; else fnacimiento">
+              <div class="edad-row">
+                <mat-form-field appearance="outline" class="edad-condicion">
+                  <mat-label>Condición</mat-label>
+                  <mat-select [formControlName]="'edad_condicion'">
+                    <mat-option value=">">Mayor</mat-option>
+                    <mat-option value="<">Menor</mat-option>
+                    <mat-option value="=">Exactamente</mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+                <mat-form-field appearance="outline" class="edad-input">
+                  <mat-label>Edad</mat-label>
+                  <input matInput type="number" [formControlName]="field.key" min="14" max="100" />
+                </mat-form-field>
+              </div>
+            </ng-container>
+          </ng-template>
+  
+  
+          <ng-template #fnacimiento>
+            <ng-container *ngIf="field.key === 'f_nacimiento'; else defaultField">
+              <div class="edad-row">
+                <mat-form-field appearance="outline" class="edad-condicion">
+                  <mat-label>Condición</mat-label>
+                  <mat-select [formControlName]="'edad_condicion'">
+                    <mat-option value=">">Mayor</mat-option>
+                    <mat-option value="<">Menor</mat-option>
+                    <mat-option value="=">Exactamente</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Año de nacimiento</mat-label>
+                  <input matInput [matDatepicker]="picker"
+                        [formControlName]="'f_nacimiento'"
+                        [max]="maxFecha"
+                        placeholder="1/1/2003"
+                        (dateChange)="filtrarSoloAnio($event)">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker startView="multi-year" panelClass="year-picker" (yearSelected)="filtrarSoloAnio($event)" (monthSelected)="picker.close()" ></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </ng-container>
+          </ng-template>
+      
+          
+          <!-- Campo por defecto -->
+          <ng-template #defaultField>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ field.label }}</mat-label>
+              <input matInput [formControlName]="field.key" />
+            </mat-form-field>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions class="dialog-actions-center">
+      <button mat-flat-button class="aplicar" (click)="aplicar()">Aplicar</button>
+      <button mat-button class="btn-cancelar"  (click)="cancelar()">Cancelar</button>
+  </mat-dialog-actions>
+</div>

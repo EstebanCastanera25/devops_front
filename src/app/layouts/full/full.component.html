@@ -1,0 +1,23 @@
+<div class="full"
+     [class.collapsed]="isCollapsed"
+     [class.mobile]="isMobile">
+
+  <!-- Columna izquierda (sidebar) -->
+  <aside class="aside">
+    <app-sidebar [(isCollapsed)]="isCollapsed"></app-sidebar>
+  </aside>
+
+  <!-- Fila superior, columna derecha (header) -->
+  <header class="header">
+    <app-header
+      [isCollapsed]="isCollapsed"
+      [isMobile]="isMobile"
+      (toggleSidebar)="toggleSidebarFromHeader()">
+    </app-header>
+  </header>
+
+  <!-- Fila inferior, columna derecha (contenido) -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

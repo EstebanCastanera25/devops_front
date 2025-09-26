@@ -1,0 +1,358 @@
+/* =========================================================
+   LOGIN RESPONSIVE: móvil, notebook y monitor 32"
+   ========================================================= */
+
+/* ===== Paleta mínima / fallbacks SASS ===== */
+$borderColor: #e6e9f0 !default;
+$cardBg: #fff !default;
+$pageBg: #eef3ff !default; // fondo celeste
+$textMuted: #6b7280 !default;
+
+/* ===== Breakpoints (Angular Material-ish) =====
+   xs: 0–599   | sm: 600–959  | md: 960–1439
+   lg: 1440–1919 | xl: ≥1920 (32")
+*/
+$bp-xs: 0px;
+$bp-sm: 600px;
+$bp-md: 960px;
+$bp-lg: 1440px;
+$bp-xl: 1920px;
+
+
+
+/* ===== Tipografía fluida =====
+   Base fluida; sube levemente en pantallas grandes
+*/
+:root {
+  font-size: clamp(14px, 1.5vw, 16px);
+}
+/* Override extra para pantallas muy grandes */
+@media (min-width: $bp-lg) {
+  :root { font-size: 17px; }
+}
+@media (min-width: $bp-xl) {
+  :root { font-size: 18px; }
+}
+
+/* ===== Login specific styles (estructura general) ===== */
+.login-error {
+  text-align: center;
+  span {
+    font-size: 0.95rem;
+  }
+}
+
+/* Botón principal (id #btn-crea según tu HTML) */
+#btn-crea{
+  background-color: var(--cta-primary);
+  color: var(--cta-contrast);
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 10px;
+  font-weight: 600;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  box-shadow: 0 10px 30px rgba(124,79,192,0.14);
+
+  &:hover{
+    background-color: var(--cta-primary-hover);
+    color: var(--cta-contrast);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(105,63,160,0.16);
+  }
+
+  &:active{
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(105,63,160,0.12);
+  }
+}
+
+/* ===== Lienzo y fondo ===== */
+.blank-layout-container {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;       // centra vertical + horizontal
+  background: $pageBg;
+  padding: 16px;             // respiración en móvil
+}
+
+/* Panel interior con leve gradiente (opcional) */
+.panel {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(93,135,255,0.08), rgba(93,135,255,0));
+
+  @media (min-width: $bp-sm) {
+    padding: 24px;
+  }
+  @media (min-width: $bp-md) {
+    padding: 32px;
+  }
+}
+
+/* ===== Card principal ===== */
+.boxed-auth {
+  width: 100%;
+  max-width: 280px;   // móvil
+  margin: 0 auto;
+
+  @media (min-width: $bp-sm) {  // tablets/pequeñas
+    max-width: 360px;
+  }
+  @media (min-width: $bp-md) {  // notebook
+    max-width: 380px;
+  }
+  @media (min-width: $bp-lg) {  // desktop grande
+    max-width: 420px;
+  }
+  @media (min-width: $bp-xl) {  // 32"
+    max-width: 440px;
+  }
+}
+
+.cardWithShadow.mat-mdc-card {
+  background: $cardBg;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(93,135,255,0.15);
+}
+
+/* ===== Espaciados rápidos ===== */
+.p-32 { padding: 24px !important; }
+.m-t-24 { margin-top: 24px !important; }
+.m-t-30 { margin-top: 30px !important; }
+.m-b-12 { margin-bottom: 12px !important; }
+.w-100 { width: 100% !important; }
+
+/* Ajuste de padding del card según viewport */
+@media (min-width: $bp-sm) {
+  .p-32 { padding: 28px !important; }
+}
+@media (min-width: $bp-md) {
+  .p-32 { padding: 32px !important; }
+}
+
+/* ===== Grid de botones sociales ===== */
+.social-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @media (min-width: 420px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.95rem;
+
+  img { flex: 0 0 auto; }
+}
+
+/* ===== Separador “o iniciar sesión con” ===== */
+.or-border {
+  position: relative;
+  text-align: center;
+  color: $textMuted;
+  font-size: 0.9rem;
+  padding: 8px 0;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 1px;
+    background: $borderColor;
+  }
+
+  &:before { left: 0; }
+  &:after  { right: 0; }
+
+  @media (min-width: $bp-sm) {
+    &:before,
+    &:after { width: 120px; }
+  }
+}
+
+/* ===== Labels e inputs (Angular Material) ===== */
+.label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+mat-form-field.w-100 { width: 100%; }
+
+/* Tono y radios del mdc outlined */
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-outline-color: #e5e7eb;
+  --mdc-outlined-text-field-hover-outline-color: #cdd5e1;
+  --mdc-outlined-text-field-focus-outline-color: var(--color-primary-500);
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-radius: 10px;
+  }
+
+  /* “Densidad”/alto del field según viewport */
+  .mdc-text-field {
+    min-height: 44px;
+  }
+  @media (min-width: $bp-md) {
+    .mdc-text-field { min-height: 48px; }
+  }
+  @media (min-width: $bp-xl) {
+    .mdc-text-field { min-height: 52px; }
+  }
+}
+
+/* ===== Checkbox + link “Olvidé mi contraseña” ===== */
+.row-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .link {
+    margin-left: auto;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary-500);
+
+    &:hover { text-decoration: underline; }
+  }
+}
+
+/* ===== Botón principal (mat-flat-button general) ===== */
+button[mat-flat-button].w-100 {
+  height: 44px;
+  border-radius: 10px;
+  font-weight: 700;
+
+  @media (min-width: $bp-md) { height: 48px; }
+  @media (min-width: $bp-xl) { height: 52px; }
+}
+
+/* ===== Botones sociales ===== */
+button[mat-stroked-button] {
+  height: 42px;
+  border-radius: 10px;
+  font-weight: 600;
+
+  @media (min-width: $bp-md) { height: 46px; }
+  @media (min-width: $bp-xl) { height: 50px; }
+}
+
+/* ===== Logo ===== */
+.text-center { text-align: center; }
+
+.logo {
+  height: 40px;
+  opacity: 0.95;
+
+  @media (min-width: 400px) { height: 44px; }
+  @media (min-width: $bp-sm) { height: 48px; }
+  @media (min-width: $bp-md) { height: 56px; }
+  @media (min-width: $bp-xl) { height: 64px; }
+}
+
+/* ===== Bloque “signup” ===== */
+.signup {
+  display: block;
+  text-align: center;
+  font-size: 0.95rem;
+
+  .link-primary {
+    color: var(--color-primary-500);
+    text-decoration: none;
+    font-weight: 700;
+
+    &:hover { text-decoration: underline; }
+  }
+}
+
+/* ===== Ajuste responsivo del tamaño de letra en inputs (Usuario / Contraseña) ===== */
+/* Afecta tanto MDC como legacy mat-input */
+.mat-mdc-form-field .mdc-text-field__input,
+.mat-mdc-form-field input.mat-input-element,
+.mat-form-field input.mat-input-element {
+  font-size: 14px;      /* base móvil */
+  line-height: 1.25;
+  font-weight: 400;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Labels (tus .label) */
+.label { font-size: 0.95rem; }
+
+/* Breakpoints: incrementa tamaño gradualmente */
+@media (min-width: $bp-sm) {
+  .mat-mdc-form-field .mdc-text-field__input,
+  .mat-mdc-form-field input.mat-input-element,
+  .mat-form-field input.mat-input-element {
+    font-size: 15px;
+  }
+  .label { font-size: 1rem; }
+}
+@media (min-width: $bp-md) {
+  .mat-mdc-form-field .mdc-text-field__input,
+  .mat-mdc-form-field input.mat-input-element,
+  .mat-form-field input.mat-input-element {
+    font-size: 16px;
+  }
+  .label { font-size: 1.03rem; }
+}
+@media (min-width: $bp-lg) {
+  .mat-mdc-form-field .mdc-text-field__input,
+  .mat-mdc-form-field input.mat-input-element,
+  .mat-form-field input.mat-input-element {
+    font-size: 17px;
+  }
+  .label { font-size: 1.05rem; }
+}
+@media (min-width: $bp-xl) {
+  .mat-mdc-form-field .mdc-text-field__input,
+  .mat-mdc-form-field input.mat-input-element,
+  .mat-form-field input.mat-input-element {
+    font-size: 18px;
+  }
+  .label { font-size: 1.08rem; }
+}
+
+/* Placeholders manteniendo tamaño / color */
+.mat-mdc-form-field input::placeholder,
+.mat-form-field input::placeholder {
+  color: rgba(0,0,0,0.32);
+  opacity: 1;
+  font-size: inherit;
+}
+
+/* ===== Accesibilidad ===== */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500, #5d87ff);
+  outline-offset: 2px;
+}
+
+/* ===== Reduce motion (si el usuario lo pidió) ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

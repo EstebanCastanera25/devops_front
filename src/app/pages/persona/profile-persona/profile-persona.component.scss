@@ -1,0 +1,54 @@
+
+
+.titulo-centrado { text-align: center; width: 100%; }
+
+.container-full{
+  gap: 6px;
+  width: 100%;
+  min-width: 800px;
+}
+
+.grid-datos{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.secciones{
+  grid-column: span 4;
+  margin: 10px 0px 0px 0px;
+}
+
+.margen1{
+  margin: 0px 10px 0px 0px;
+}
+
+.inner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 columnas: email + país + fijo */
+  gap: 12px;
+  margin: 10px 0px 0px 0px;
+  width: 100%;
+}
+.span-1 {
+  grid-column: span 1; /* ocupa 1 columnas */
+}
+
+.span-2 {
+  grid-column: span 2; /* ocupa 2 columnas */
+}
+.span-3 {
+  grid-column: span 3; /* ocupa 3 columnas */
+}
+
+.span-4 {
+  grid-column: span 4; /* ocupa 4 columnas */
+}
+
+
+/* Responsive opcional */
+@media (max-width: 768px) {
+  .inner-grid { grid-template-columns: 1fr; }
+  .span-2 { grid-column: auto; }
+}
+.actions{
+  margin: 0px auto;
+}

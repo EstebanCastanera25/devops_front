@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>{{ data?.titulo || 'Confirmar acción' }}</h2>
+<mat-dialog-content>
+  {{ data?.contenido || '¿Está seguro que desea continuar?' }}
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button class="btn-rojo" (click)="dialogRef.close(true)">Si</button>
+  <button mat-button class="btn-verde" (click)="dialogRef.close(false)">No</button>
+</mat-dialog-actions>

@@ -1,0 +1,96 @@
+
+.contenido-importacion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+
+  input[type="file"] {
+    margin-top: 8px;
+  }
+
+  .archivo-nombre {
+    font-style: italic;
+    color: #555;
+  }
+
+  .errores {
+    background-color: #ffe5e5;
+    border: 1px solid #f44336;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+
+    h3 {
+      margin-top: 0;
+      color: #d32f2f;
+    }
+
+    mat-list-item {
+      font-size: 13px;
+    }
+  }
+}
+
+.importar-acciones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-top: 16px;
+
+  .izquierda,
+  .derecha {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+}
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 42px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease all;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  margin: 15px;
+  background-color: var(--color-primary-500) ;
+  color: var(--on-primary-500)!important;
+  z-index: 2;
+}
+button:hover{
+    background-color:var(--color-primary-500-hover);
+    color: var(--on-primary-500);
+}
+
+.custom-file-input {
+  margin-top: 8px;
+
+  label {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--color-primary-500);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    user-select: none;
+
+    &:hover {
+      background-color: var(--color-primary-500-hover);
+      color: var(--on-primary-500);
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}

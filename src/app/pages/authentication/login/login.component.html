@@ -1,0 +1,46 @@
+<div class="blank-layout-container bg-light-primary">
+  <div class="panel">
+    <mat-card class="boxed-auth cardWithShadow">
+      <mat-card-content class="p-32">
+
+        <!-- Mensaje de error de login -->
+        <div *ngIf="errorMsg" class="login-error m-t-24">
+          <mat-card color="warn" class="p-2">
+            <span style="color:#b00020; font-weight:600;">
+              {{ errorMsg }}
+            </span>
+          </mat-card>
+        </div>
+
+        <!-- Formulario -->
+        <form [formGroup]="userLogin" class="m-t-30" (ngSubmit)="login()">
+          <mat-label class="label">Usuario</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="usuario" type="text" />
+            <mat-error *ngIf="userLogin.get('usuario')?.hasError('required')">
+              El usuario es requerido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-label class="label">Contraseña</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="contrasenia" type="password" />
+            <mat-error *ngIf="userLogin.get('contrasenia')?.hasError('required')">
+              La contraseña es requerida
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            id="btn-crea"
+            type="submit"
+            [disabled]="loading"
+          >
+            {{ loading ? 'Ingresando…' : 'Iniciar sesión' }}
+          </button>
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

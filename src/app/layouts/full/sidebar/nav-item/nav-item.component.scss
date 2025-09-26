@@ -1,0 +1,125 @@
+/* SASS fallback variables (por si querés usarlas en mixins) */
+$sidebar-primary: var(--sidebar-primary);
+$sidebar-primary-dark: var(--sidebar-primary-dark);
+$sidebar-primary-light: var(--sidebar-primary-light);
+$sidebar-item-bg: var(--sidebar-item-bg);
+$sidebar-item-hover: var(--sidebar-item-hover);
+$sidebar-item-active: var(--sidebar-item-active);
+$sidebar-submenu-bg: var(--sidebar-submenu-bg);
+$sidebar-text: var(--sidebar-text);
+$sidebar-muted: var(--sidebar-muted);
+
+/* 2) SASS fallbacks (útiles para operaciones SASS) */
+$sidebar-primary: #7a2793;
+$sidebar-primary-dark: #5b1d6b;
+$sidebar-primary-light: #a786d9;
+$sidebar-item-bg: #5d87ff;      // fallback SASS
+$sidebar-item-hover: #4d58fd;
+$sidebar-item-active: #4d58fd;
+$sidebar-submenu-bg: #6a92fd;
+$sidebar-text: #ffffff;
+$sidebar-muted: rgba(255,255,255,0.85);
+
+
+/* ========================= Estilos modificados ========================= */
+
+.menu-list-item {
+  /* usamos la CSS var con fallback SASS */
+  background-color: var(--sidebar-item-bg, $sidebar-item-bg);
+  color: var(--sidebar-text, $sidebar-text);
+  font-weight: 700;
+  border-radius: 10px;
+  margin: 2px 4px;
+  min-height: 40px;
+  transition: background-color .15s ease, transform .08s;
+
+  .routeIcon {
+    font-size: 20px;
+    margin-right: 10px;
+    color: var(--sidebar-text, $sidebar-text);
+  }
+
+  .label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--sidebar-text, $sidebar-text);
+    font-weight: 700;
+  }
+
+  .spacer { flex: 1; }
+  &.group { font-weight: 600; }
+
+  &:hover {
+    background-color: var(--sidebar-item-hover, $sidebar-item-hover);
+    transform: translateY(-1px);
+  }
+}
+
+/* texto oculto / collapsed */
+.menu-list-item .hide-menu { font-weight: 700; color: var(--sidebar-text, $sidebar-text); }
+
+/* Submenu */
+.submenu {
+  display: grid;
+  gap: 2px;
+  padding-left: 25px;
+  color: var(--sidebar-text, $sidebar-text);
+  border-radius: 15px;
+
+  .submenu-item {
+    min-height: 36px;
+    color: var(--sidebar-text, $sidebar-text);
+    background-color: var(--sidebar-submenu-bg, $sidebar-submenu-bg);
+    border-radius: 15px;
+    transition: background-color .12s ease;
+
+    .routeIcon.small {
+      font-size: 16px;
+      margin-right: 5px;
+      color: var(--sidebar-text, $sidebar-text);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    &:hover {
+      background-color: var(--sidebar-item-hover, $sidebar-item-hover);
+    }
+  }
+}
+
+/* Estado activo */
+a.mat-mdc-list-item.active,
+.submenu-item.active {
+  background: var(--sidebar-item-active, $sidebar-item-active);
+  color: var(--sidebar-text, $sidebar-text);
+  border-left: 6px solid var(--sidebar-primary-dark, $sidebar-primary-dark);
+  box-shadow: 0 6px 18px rgba(122,39,147,0.14);
+}
+
+/* Hover genérico (por si quedan selectores antiguos) */
+a.mat-mdc-list-item:hover,
+button.menu-list-item:hover {
+  background: var(--sidebar-item-hover, $sidebar-item-hover);
+  color: var(--sidebar-text, $sidebar-text);
+}
+
+/* estado por defecto */
+.menu-list-item, .group:hover {
+  background-color: var(--sidebar-item-bg, $sidebar-item-bg);
+  color: var(--sidebar-text, $sidebar-text);
+}
+#label{
+  color: var(--sidebar-text, $sidebar-text);
+  font-weight: 500;
+}
+/* collapsed (si aplicás clase .collapsed en el wrapper) */
+:host(.collapsed) .menu-list-item .label,
+:host(.collapsed) .menu-list-item .hide-menu {
+  display: none;
+}
+
+/* ejemplo: usar SASS funcions si necesitás un color más claro */
+.menu-list-item.alt {
+  background: lighten($sidebar-item-bg, 6%); /* SOLO funciona si usás el fallback SASS */
+}

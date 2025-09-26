@@ -1,0 +1,74 @@
+/* Breakpoints coherentes con tu app */
+$bp-sm: 600px;
+$bp-md: 960px;
+$bp-lg: 1440px;
+
+/* Contenedor general */
+.contenedorPaginas{
+  width: 100%;
+  margin: auto;
+}
+
+.informacion{
+  width: fit-content;
+  margin: auto;
+  color: var(--accent-darker-color);
+  font-size: 14px;
+}
+
+/* Fix de typo: 16px (antes 16x) */
+mat-icon { font-size: 16px; }
+
+.borde{
+  border-bottom: solid var(--primary-color);
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.contenedorButton{ width: 100%; }
+
+/* === Toolbar/encabezado responsivo === */
+.border-bottom{
+  display: grid;
+  gap: 10px 14px;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--toolbar-bg, #f5f7ff);
+
+  /* Móvil: 1 columna */
+  grid-template-columns: 1fr;
+  grid-template-areas: "contador";
+  align-items: center;
+
+  @media (min-width: $bp-sm){
+    /* Tablet: deja espacio si más tarde agregás botones/filtros */
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "contador contador";
+  }
+
+  @media (min-width: $bp-md){
+    /* Notebook/desktop */
+    grid-template-columns: minmax(260px, 1fr);
+    grid-template-areas: "contador";
+  }
+}
+
+.contador-dinamico{
+  grid-area: contador;
+  max-width: 480px;
+  font-size: clamp(13px, 1.4vw, 14px);
+  color: var(--color-primary-700);
+  margin-left: 4px;
+}
+
+/* Por si más tarde reponés un botón aquí */
+.botonRegistrar { flex-shrink: 0; }
+
+/* Lista/tabla: evita desborde horizontal y limita alto si querés */
+.listaMiembros{
+  width: 100%;
+  overflow: auto;        /* scroll si hay muchas columnas */
+  /* opcional: max-height: 70vh; */
+}

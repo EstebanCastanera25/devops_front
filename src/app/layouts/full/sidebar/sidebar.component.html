@@ -1,0 +1,31 @@
+<nav class="sidebar"
+     role="navigation"
+     [class.collapsed]="isCollapsed"
+     [class.mobile]="isMobile"
+     [class.open]="isMobile && !isCollapsed"
+     (keydown.escape)="closeOnBackdrop()">
+
+  <div class="branding-header">
+    <div class="logo-container">
+      <!-- Si tenés un componente de branding, le pasamos el estado -->
+      <app-branding [isCollapsed]="isCollapsed"></app-branding>
+    </div>
+
+    <button mat-icon-button class="toggle-button"
+            (click)="toggleSidebar()"
+            aria-label="Alternar menú">
+      <mat-icon>{{ isCollapsed ? 'menu' : 'chevron_left' }}</mat-icon>
+    </button>
+  </div>
+
+  <mat-nav-list class="sidebar-list">
+    <app-nav-item
+      *ngFor="let item of navItems; trackBy: trackByName"
+      [item]="item"
+      [collapsed]="isCollapsed">
+    </app-nav-item>
+  </mat-nav-list>
+</nav>
+
+<!-- Backdrop para móvil -->
+<div class="backdrop" *ngIf="isMobile && !isCollapsed" (click)="closeOnBackdrop()"></div>

@@ -1,0 +1,41 @@
+    <div class="pageWrapper">
+
+       <div class="contenedorButton">
+         <div class="border-bottom ">
+               <div class="botonRegistrar">
+                  <button id="margenButton" mat-flat-button  (click)="crearMiembro()">Registrar Miembro</button>
+               </div>
+               <div class="contador-dinamico">
+              <strong >
+                Total de miembros: {{ totalMiembros }}
+              </strong><br />
+              <strong >
+                Total de miembros en WhatsApp: {{ totalMiembrosEnWpGeneral }}
+              </strong>
+              </div>
+               <div class="filtros">
+                 <button mat-stroked-button color="accent" (click)="openFiltroAvanzado()">Filtro Avanzado</button>
+                 <button mat-stroked-button color="primary" (click)="openSeleccionColumnas()">Filtrar Columnas</button>
+                 <button mat-stroked-button color="warn" (click)="limpiarFiltros()">    Limpiar  </button>
+               </div>
+         </div>
+       </div>
+          
+      
+      <div class="listaMiembros" >
+        <app-tabla-paginada
+        Nombre="Miembros Activos"
+        [Contenido]="Lista"
+        [columnas]="Columnas"
+        [customActions]="customActions" 
+        [filterEnable]="true"
+        [descargable]="true"
+        [editable]=true
+        (clicked)="VistaPersona($event)"
+        (editar)="editarPersona($event)"
+        (borrar)="botonBorrarPersona($event)" 
+        ></app-tabla-paginada>
+    
+      </div>      
+    </div>
+

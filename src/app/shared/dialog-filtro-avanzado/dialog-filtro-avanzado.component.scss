@@ -1,0 +1,163 @@
+/* Helpers base */
+.full-width { width: 100%; }
+
+mat-form-field:first-of-type { margin: 5px; }
+
+.btn-cancelar {
+  background-color: var(--cta-primary);
+  color: var(--cta-contrast);
+}
+.aplicar {
+  background-color: var(--success-500);
+  color: var(--cta-contrast);
+}
+.aplicar:hover { background-color: var(--success-600); }
+.btn-cancelar:hover { background-color: var(--cta-primary-hover); }
+
+/* CENTRAR BOTONES: contenedor de acciones ocupa todo el ancho y centra sus hijos */
+.dialog-actions-center,
+.cdk-overlay-pane .dialog-actions-center {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0 0;
+  flex-wrap: wrap;
+}
+
+/* GRID: móvil = 1 columna; notebook y mayor = 2 columnas */
+.grid-columns {
+  display: grid;
+  grid-template-columns: 1fr; /* móvil por defecto: 1 columna */
+  column-gap: 16px;
+  row-gap: 12px;
+}
+
+/* breakpoint notebook (>=960px): 2 columnas */
+@media (min-width: 960px) {
+  .grid-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* evitar overflow por inputs largos */
+.grid-columns > div { min-width: 0; }
+
+/* age row helpers */
+.edad-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+.edad-condicion {
+  min-width: 100px;
+  flex: 0 0 160px;
+}
+.edad-input {
+  min-width: 100px;
+  flex: 1;
+}
+
+/* ajuste tipográfico */
+mat-form-field .mat-form-field-infix { font-size: 14px; }
+
+/* ==============================
+   Full-height dialog + ocultar scrollbar visual
+   ============================== */
+
+/* Aplicar solo cuando el overlay tenga la clase .responsive-filter-dialog */
+.cdk-overlay-pane.responsive-filter-dialog .mat-mdc-dialog-surface,
+.cdk-overlay-pane.responsive-filter-dialog .mat-dialog-container,
+.cdk-overlay-pane.responsive-filter-dialog .mat-mdc-dialog-container {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  margin: 0 auto !important;
+  top: 0 !important;
+  overflow: hidden !important; /* que el contenedor exterior no muestre scrollbar */
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+/* Tu wrapper interno que añadiste */
+.cdk-overlay-pane.responsive-filter-dialog .dialog-full,
+.dialog-full {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* ocupa la altura del container */
+  box-sizing: border-box;
+}
+
+/* Título (no scrollea) */
+.cdk-overlay-pane.responsive-filter-dialog .dialog-full > [mat-dialog-title],
+.dialog-full > [mat-dialog-title] {
+  flex: 0 0 auto;
+  padding: 18px 20px 8px;
+}
+
+/* Contenido: area scrollable (pero scrollbar oculto visualmente) */
+.cdk-overlay-pane.responsive-filter-dialog .dialog-full > mat-dialog-content,
+.dialog-full > mat-dialog-content,
+.cdk-overlay-pane.responsive-filter-dialog .dialog-full > .dialog-content,
+.dialog-full > .dialog-content {
+  flex: 1 1 auto;
+  min-height: 0; /* clave para que flex no rompa el cálculo */
+  max-height: calc(100vh - 140px); /* ajustar: viewport - (header + footer). Cambia 140px si tu header/footer tienen otra altura */
+  overflow: auto !important; /* permite scroll interno */
+  padding: 0 20px 8px;
+  box-sizing: border-box;
+
+  /* ocultar scrollbar visual manteniendo la funcionalidad */
+  -ms-overflow-style: none !important;  /* IE/Edge */
+  scrollbar-width: none !important;     /* Firefox */
+}
+
+/* webkit (Chrome/Safari/Opera) */
+.cdk-overlay-pane.responsive-filter-dialog .dialog-full > mat-dialog-content::-webkit-scrollbar,
+.dialog-full > mat-dialog-content::-webkit-scrollbar,
+.cdk-overlay-pane.responsive-filter-dialog .dialog-full > .dialog-content::-webkit-scrollbar,
+.dialog-full > .dialog-content::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* Footer / acciones fijas */
+.cdk-overlay-pane.responsive-filter-dialog .dialog-full > mat-dialog-actions,
+.dialog-full > mat-dialog-actions {
+  flex: 0 0 auto;
+  padding: 6px 10px 10px;
+  display: flex;
+  justify-content: center; /* botones centrados */
+  gap: 5px;
+  box-sizing: border-box;
+}
+
+/* Mobile tweaks */
+@media (max-width: 599px) {
+  .cdk-overlay-pane.responsive-filter-dialog .mat-mdc-dialog-surface,
+  .cdk-overlay-pane.responsive-filter-dialog .mat-dialog-container {
+    width: 96vw !important;
+    height: 80vh !important;
+    max-height: 80vh !important;
+     gap: 0;            /* elimina ambos: column-gap y row-gap */
+  /* o por separado */
+  column-gap: 0;
+  row-gap: 0;
+  }
+  .btn-cancelar{
+    margin: 0px!important;
+  }
+  .dialog-full > mat-dialog-content,
+  .dialog-full > .dialog-content {
+    max-height: calc(100vh - 160px) !important;
+    padding: 12px 8px;
+  }
+  .dialog-full > mat-dialog-actions button {
+    width: 100% !important; /* botones full-width en móvil */
+    max-width: 100%;
+  }
+}

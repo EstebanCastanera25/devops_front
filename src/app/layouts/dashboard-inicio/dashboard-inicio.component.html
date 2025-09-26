@@ -1,0 +1,114 @@
+<!-- Header -->
+<header class="gradient-bg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="logo-text">
+          <h1>Devops</h1>
+        </div>
+      </div>
+      
+      <nav class="main-nav">
+        <a (click)="scrollToSection('noticias')" class="nav-link">Noticias</a>
+        <a (click)="scrollToSection('servicios')" class="nav-link">Imagenes</a>
+        <a (click)="scrollToSection('contacto')" class="nav-link">Contacto</a>
+        <button type="button"
+        class="buttonAdmin"
+        [routerLink]="['/authentication', 'login']"
+        >
+         Admin
+        </button>
+        
+      </nav>
+    </div>
+  </div>
+
+</header>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h2 class="hero-title">
+        Información Devops
+      </h2>
+      <p class="hero-description">
+        Mantente informado sobre las últimas novedades, servicios en Ciudad de Buenos Aires
+      </p>
+      <div class="hero-buttons">
+        <button (click)="scrollToSection('noticias')" class="btn btn-primary">
+          Ver Noticias
+        </button>
+        <button (click)="scrollToSection('actividades')" class="btn btn-outline">
+          Actividades
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Noticias Section -->
+<section id="noticias" class="news-section">
+  <div class="container">
+    <h2 class="section-title">Últimas Noticias</h2>
+    
+    <div class="news-grid">
+      <div class="news-card" *ngFor="let item of news">
+        <div class="news-image">
+          <img [src]="item.image" [alt]="item.alt" (error)="onImageError($event)">
+        </div>
+        <div class="news-content">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+          <div class="news-footer">
+            <span class="news-date">{{ item.date }}</span>
+            <a href="#" class="read-more">Leer más →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Services Section (placeholder) -->
+<section id="actividades" class="services-section">
+  <div class="container">
+    <h2 class="section-title">Nuestras Actividades</h2>
+    <p class="text-center">Actividades de la comuna disponibles para los vecinos.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contacto" class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Devops</h4>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Contacto</h4>
+        <p>{{mailContacto}}</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Síguenos</h4>
+        <div class="social-links" >
+            <a href="https://www.instagram.com/devops__community/" target="_blank" rel="noopener noreferrer">
+                <img src="../../../assets/images/logos/instagram.png" alt="Instagram" style="width:32px; height:32px; border-radius:8px;">
+            </a>
+          <a href="https://x.com/AzureDevOps" target="_blank" rel="noopener noreferrer">
+                <img src="../../../assets/images/logos/twiter.jpg" alt="Twitter" style="width:32px; height:32px; border-radius:8px;">
+            </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© {{ anioActual }} Ciudad Autonoma de Buenos Aires. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

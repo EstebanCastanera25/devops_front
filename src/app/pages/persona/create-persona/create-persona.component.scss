@@ -1,0 +1,77 @@
+
+/* ===== Breakpoints (igual que login) ===== */
+$bp-sm: 600px;
+$bp-md: 960px;
+$bp-lg: 1440px;
+
+/* Utilidades */
+.w-100 { width: 100% !important; }
+
+.titulo-centrado { text-align: center; width: 100%; }
+
+/* Dialog body */
+.container-full{
+  width: 100%;
+  max-width: 1100px;        /* ancho máximo en desktop */
+  margin: 0 auto;
+  padding: 8px 12px;
+}
+
+/* Grid principal del form */
+.grid-datos{
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr; /* móvil: 1 col */
+
+  @media (min-width: $bp-sm){ grid-template-columns: repeat(2, 1fr); } /* tablet */
+  @media (min-width: $bp-md){ grid-template-columns: repeat(4, 1fr); } /* notebook+ */
+}
+
+/* Secciones (expansion panels) ocupan fila completa */
+.secciones{ margin-top: 10px; }
+
+/* Spans responsivos */
+.span-1, .span-2, .span-3, .span-4 { grid-column: 1 / -1; } /* móvil: full */
+
+@media (min-width: $bp-sm){
+  .span-1 { grid-column: span 1; }
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+  .span-4 { grid-column: span 4; }
+}
+
+/* Grid interior de cada panel */
+.inner-grid{
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;           /* móvil */
+
+  @media (min-width: $bp-sm){ grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: $bp-md){ grid-template-columns: repeat(4, 1fr); }
+}
+
+.inner-grid--2cols{
+  grid-template-columns: 1fr 1fr;       /* para checks de “Estado” */
+}
+
+/* Asegura que los form-fields ocupen la celda completa y no desborden */
+mat-form-field{ width: 100%; min-width: 0; }
+
+/* Acciones del diálogo */
+.actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  margin: 0 auto;
+}
+
+/* Densidad más compacta en móvil (opcional) */
+@media (max-width: $bp-sm){
+  .container-full{ padding: 6px; }
+  .actions{ justify-content: flex-start; }
+}
+
+/* Ajustes visuales suaves */
+mat-accordion{ width: 100%; }
+mat-expansion-panel{ border-radius: 8px; overflow: hidden; }

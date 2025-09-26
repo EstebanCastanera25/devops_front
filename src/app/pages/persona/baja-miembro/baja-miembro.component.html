@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>
+  Baja de "{{ data?.persona?.nombres || '' }} {{ data?.persona?.apellidos || '' }}"
+</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field appearance="fill" class="campo-motivo">
+    <mat-label>Motivo de baja</mat-label>
+    <textarea
+      matInput
+      formControlName="motivo"
+      rows="3"
+      maxlength="200"
+    ></textarea>
+
+    <mat-hint align="end">
+      {{ form.get('motivo')?.value?.length || 0 }} / 200
+    </mat-hint>
+
+    <mat-error *ngIf="form.get('motivo')?.hasError('required')">
+      El motivo es obligatorio
+    </mat-error>
+    <mat-error *ngIf="form.get('motivo')?.hasError('pattern')">
+      El motivo no puede estar vacío
+    </mat-error>
+    <mat-error *ngIf="form.get('motivo')?.hasError('maxlength')">
+      Máximo 200 caracteres
+    </mat-error>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="guardar()" [disabled]="form.invalid">
+    Guardar
+  </button>
+</mat-dialog-actions>

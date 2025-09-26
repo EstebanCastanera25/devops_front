@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Importar Personas</h2>
+
+<mat-dialog-content class="contenido-importacion">
+  <p>Seleccione un archivo Excel (.xlsx) con el formato correcto.</p>
+  
+  <div class="custom-file-input">
+    <label for="fileInput">📁 Seleccionar archivo</label>
+    <input type="file" id="fileInput" accept=".xlsx" (change)="onFileSelected($event)" />
+  </div>
+
+  <div *ngIf="archivoSeleccionado" class="archivo-nombre">
+    Archivo: {{ archivoSeleccionado.name }}
+  </div>
+
+  <div *ngIf="erroresImportacion.length > 0" class="errores">
+    <h3>Errores detectados:</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let err of erroresImportacion">
+        <b>Fila {{ err.fila }}:</b> {{ err.motivo }}
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="importar-acciones">
+  <div class="izquierda">
+    <button mat-stroked-button (click)="descargarModelo()">Descargar modelo</button>
+  </div>
+
+  <div class="derecha">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button color="primary" [disabled]="!archivoSeleccionado" (click)="importar()">Importar</button>
+  </div>
+</mat-dialog-actions>

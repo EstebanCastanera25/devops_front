@@ -1,0 +1,720 @@
+// Variables
+$primary-blue: #31115f;
+$primary-blue-dark: #31125d;
+$secondary-blue: #31125d;
+$light-gray: #f9fafb;
+$medium-gray: #31125d;
+$dark-gray: #31125d;
+$white: #ffffff;
+$green: #059669;
+$yellow: #eab308;
+
+// Mixins
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $primary-blue-dark 0%, $primary-blue 100%);
+}
+
+@mixin container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+}
+
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  gap: 0.5rem;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Global styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: $dark-gray;
+}
+.buttonAdmin{
+    color: #31115f
+}
+.buttonAdmin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.6rem 1.25rem;      // más grande
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 0;
+  border-radius: 9999px;        // puntas bien redondeadas
+  cursor: pointer;
+
+  background-color: $yellow;    // o $secondary-blue si preferís púrpura
+  color: $primary-blue-dark;
+
+  transition: background-color .2s ease, transform .15s ease, box-shadow .2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+
+  &:hover {
+    transform: scale(1.05);                     // se agranda un poco
+    background-color: darken($yellow, 10%);     // color más oscuro al hover
+    box-shadow: 0 6px 16px rgba(0,0,0,.2);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255,255,255,.7);
+    outline-offset: 2px;
+  }
+}
+
+
+.container {
+  @include container;
+}
+
+// Buttons
+.btn {
+  @include btn-base;
+  
+  &.btn-primary {
+    background-color: $secondary-blue;
+    color: $white;
+    
+    &:hover {
+      background-color: darken($secondary-blue, 10%);
+    }
+  }
+  
+  &.btn-outline {
+    border: 2px solid $secondary-blue;
+    color: $secondary-blue;
+    background-color: transparent;
+    
+    &:hover {
+      background-color: $secondary-blue;
+      color: $white;
+    }
+  }
+  
+  &.btn-success {
+    background-color: $green;
+    color: $white;
+    
+    &:hover {
+      background-color: darken($green, 10%);
+    }
+  }
+  
+  &.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    background-color: $secondary-blue;
+    color: $white;
+    
+    &:hover {
+      background-color: darken($secondary-blue, 10%);
+    }
+  }
+  
+  &.full-width {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// Header
+header {
+  @include gradient-bg;
+  color: $white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+  }
+  
+  .logo-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+    }
+  }
+  
+  .logo-icon {
+    width: 5rem;
+    height: 5rem;
+    background-color: $white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    
+    i {
+      color: $primary-blue-dark;
+      font-size: 1.25rem;
+    }
+  }
+  
+  .logo-text {
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    p {
+      margin: 0;
+      color: rgba($white, 0.8);
+      font-size: 0.875rem;
+    }
+  }
+  
+  .main-nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .nav-link {
+    color: $white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+      color: rgba($white, 0.8);
+    }
+  }
+  
+  .admin-btn {
+    @include btn-base;
+    background-color: $yellow;
+    color: $primary-blue-dark;
+    padding: 0.5rem 1rem;
+    
+    &:hover {
+      background-color: darken($yellow, 10%);
+    }
+  }
+}
+
+// Hero Section
+.hero-section {
+  background-color: $white;
+  padding: 4rem 0;
+  
+  .hero-content {
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $dark-gray;
+    margin-bottom: 1rem;
+    
+    @media (min-width: 768px) {
+      font-size: 3rem;
+    }
+  }
+  
+  .hero-description {
+    font-size: 1.25rem;
+    color: $medium-gray;
+    margin-bottom: 2rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+}
+
+// News Section
+.news-section {
+  background-color: $light-gray;
+  padding: 4rem 0;
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: $dark-gray;
+    margin-bottom: 3rem;
+  }
+  
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .news-card {
+    background-color: $white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-0.25rem);
+    }
+  }
+  
+  .news-image {
+    aspect-ratio: 16 / 9;          /* o 4/3, 1/1 según prefieras */
+    width: 100%;
+    background: #31125d;           /* color de “barras” */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;   
+  }
+  .news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;           /* <-- clave: contiene sin recortar */
+    object-position: center;
+    display: block;
+  }
+  .news-content {
+    padding: 1.5rem;
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $dark-gray;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: $medium-gray;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .news-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .news-date {
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+  
+  .read-more {
+    color: $secondary-blue;
+    text-decoration: none;
+    font-weight: 500;
+    
+    &:hover {
+      color: darken($secondary-blue, 15%);
+    }
+  }
+}
+
+// Admin Panel
+.admin-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem;
+  overflow-y: auto;
+  
+  &.active {
+    display: flex;
+  }
+}
+
+.admin-panel {
+  background-color: $white;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 42rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  
+  h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $dark-gray;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    color: $medium-gray;
+    font-size: 1.5rem;
+    cursor: pointer;
+    
+    &:hover {
+      color: $dark-gray;
+    }
+  }
+}
+
+.admin-content {
+  padding: 1.5rem;
+}
+
+.admin-section {
+  margin-bottom: 2rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: $dark-gray;
+  }
+}
+
+// Form styles
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-input, .form-textarea, .form-file {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  
+  &:focus {
+    outline: none;
+    border-color: $secondary-blue;
+    box-shadow: 0 0 0 3px rgba($secondary-blue, 0.1);
+  }
+}
+.logo-icon__img{
+    height: 36px;
+    width: 36px;
+}
+.form-textarea {
+  height: 6rem;
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $dark-gray;
+  margin-bottom: 0.5rem;
+}
+
+// Social settings
+.social-settings {
+  .social-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background-color: $light-gray;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .social-info {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    
+    i {
+      font-size: 1.25rem;
+      margin-right: 0.75rem;
+      
+      &.fa-instagram {
+        color: #e1306c;
+      }
+      
+      &.fa-twitter {
+        color: #1da1f2;
+      }
+    }
+  }
+  
+  .social-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    min-width: 0;
+  }
+}
+
+// Services Section (placeholder)
+.services-section {
+  padding: 4rem 0;
+  text-align: center;
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $dark-gray;
+    margin-bottom: 1rem;
+  }
+}
+
+// Footer
+.footer {
+  background-color: #31125d;
+  color: $white;
+  padding: 3rem 0;
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .footer-section {
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      color: #d1d5db;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .social-link {
+    color: #d1d5db;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: $white;
+    }
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #31125d;
+    padding-top: 2rem;
+    text-align: center;
+    color: #9ca3af;
+  }
+}
+
+// Utility classes
+.text-center {
+  text-align: center;
+}
+
+
+
+//Fiscaliza
+
+/* === CTA lateral “Sumate a fiscalizar” ================================ */
+.side-cta {
+  position: fixed;
+  inset-block-start: 50%;         // equivale a top: 50%
+  inset-inline-end: 0;            // equivale a right: 0
+  transform: translateY(-50%);
+  z-index: 1200;
+  pointer-events: none;           // la tarjeta recibe los eventos, el wrapper no
+}
+
+.side-cta .cta-link {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  text-decoration: none;
+
+  background: $yellow;            // tu paleta
+  color: $primary-blue-dark;
+  border-radius: 12px 0 0 12px;
+  padding: .75rem 1rem .75rem .85rem;
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+
+  /* “Escondida” un poco a la derecha y se desliza al hover/focus */
+  transform: translateX(60%);
+  transition: transform .25s ease, box-shadow .25s ease, background-color .2s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateX(0%);
+    box-shadow: 0 14px 30px rgba(0,0,0,.22);
+    background: darken($yellow, 5%);
+    outline: none;
+  }
+}
+
+.cta-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.cta-text {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cta-btn {
+  background: $primary-blue-dark;
+  color: $white;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: .4rem .8rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Mobile: convertimos en botón flotante para no tapar contenido */
+@media (max-width: 768px) {
+  .side-cta {
+    inset-block-start: auto;
+    inset-inline-end: 1rem;
+    inset-block-end: 1rem;
+    transform: none;
+  }
+  .side-cta .cta-link {
+    transform: none;
+    border-radius: 9999px;
+    padding: .7rem .95rem;
+  }
+  .cta-text { display: none; }   // dejamos solo ícono + botón corto
+  .cta-btn  { padding: .4rem .6rem; }
+}
+
+/* Accesibilidad: si el usuario pide menos animaciones */
+@media (prefers-reduced-motion: reduce) {
+  .side-cta .cta-link { transition: none; }
+}
+
+//video
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  background: rgba(0,0,0,.65);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+
+  .video-dialog {
+    position: relative;
+    width: min(400px, 90vw);   // más angosto
+    aspect-ratio: 9/16;        // vertical
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .video-close {
+    position: absolute;
+    top: .5rem; right: .5rem;
+    border: 0; background: rgba(0,0,0,.45);
+    color: #fff; border-radius: 50%;
+    width: 36px; height: 36px;
+    cursor: pointer;
+  }
+
+  .video-cta {
+    position: absolute;
+    bottom: .75rem; right: .75rem;
+    padding: .55rem .9rem;
+    border-radius: 9999px;
+  }
+}

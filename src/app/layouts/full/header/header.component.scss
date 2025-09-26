@@ -1,0 +1,68 @@
+/* ===== Topbar / Toolbar ===== */
+.topbar.mat-toolbar {
+  height: 60px;
+  min-height: 60px;
+  padding: 0 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(93, 135, 255, 0.12);
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+/* Botones de icono */
+.topbar .mat-mdc-icon-button {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+
+/* Badge del ícono campana (Angular Material) */
+.topbar .mat-badge-content {
+  font-size: 10px;
+}
+
+/* Spacer flexible */
+.flex-1-auto { flex: 1 1 auto; }
+
+/* Avatar */
+.rounded-circle { border-radius: 9999px; }
+.object-cover { object-fit: cover; }
+
+/* Tamaños de íconos Tabler */
+.icon-20 { font-size: 20px; width: 20px; height: 20px; }
+.icon-18 { font-size: 18px; width: 18px; height: 18px; }
+
+/* Dropdown del perfil (mat-menu) */
+.topbar-dd.mat-mdc-menu-panel {
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 6px 0;
+}
+
+.cardWithShadow {
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(93,135,255,0.15);
+  border-radius: 14px;
+}
+
+/* Items del menú */
+.topbar-dd .mat-mdc-menu-item {
+  height: 42px;
+  font-size: 14px;
+}
+
+/* Botón Salir dentro del menú */
+.p-x-12 { padding-left: 12px; padding-right: 12px; }
+.m-t-12 { margin-top: 12px; }
+.w-100 { width: 100%; }
+
+/* Accesibilidad */
+:focus-visible {
+  outline: 2px solid #5d87ff;
+  outline-offset: 2px;
+}
+
+/* Opcional: hover sutil en toolbar buttons */
+.topbar .mat-mdc-icon-button:hover {
+  background: rgba(0,0,0,0.04);
+  border-radius: 8px;
+}

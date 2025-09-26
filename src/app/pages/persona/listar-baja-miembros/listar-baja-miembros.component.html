@@ -1,0 +1,24 @@
+ <div class="pageWrapper">
+  <div class="contenedorButton">
+    <div class="border-bottom">
+      <div class="contador-dinamico">
+        <strong>Miembros baja: {{ totalMiembros }}</strong><br />
+      </div>
+    </div>
+
+    <div class="listaMiembros">
+      <app-tabla-paginada
+        Nombre="Baja de Miembros"
+        [Contenido]="Lista"
+        [columnas]="Columnas"
+        [filterEnable]="true"
+        [descargable]="true"
+        [editable]="true"
+        (clickAction)="mostrarMiembro($event)"
+        (clicked)="VistaMiembro($event)"
+        (editar)="editarMiembro($event)"
+        (borrar)="eliminarMiembro($event)">
+      </app-tabla-paginada>
+    </div>
+  </div>
+</div>

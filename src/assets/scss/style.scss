@@ -1,0 +1,104 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+@import "variables";
+
+//Theme colors
+
+@import "themecolors/default_theme";
+@include mat.all-component-themes($bluetheme);
+
+
+
+
+:root {
+  
+   /* ---------- paleta principal ---------- */
+  --sidebar-primary: #7a2793;        /* base */
+  --sidebar-primary-dark: #5b1d6b;   /* activo / borde */
+  --sidebar-primary-light: #a786d9;  /* acentos / degradados */
+
+  /* ---------- sidebar (colores) ---------- */
+  --sidebar-item-bg: #8f5bcf;        /* fondo items */
+  --sidebar-item-hover: #6b3ea8;     /* hover */
+  --sidebar-item-active: #5b1d6b;    /* item activo sólido */
+  --sidebar-submenu-bg: #9a6fd9;     /* fondo submenu */
+  --sidebar-text: #ffffff;           /* color texto */
+  --sidebar-muted: rgba(255,255,255,0.85);
+
+  /* ---------- dimensiones y layout ---------- */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --sidebar-item-radius: 10px;
+  --sidebar-item-padding: 10px 12px;
+
+  /* ---------- bordes / sombras / transiciones ---------- */
+  --sidebar-border: rgba(0,0,0,0.06);
+  --sidebar-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  --sidebar-active-border-color: var(--sidebar-primary-dark);
+  --transition-fast: 0.12s;
+  --transition-normal: 0.2s;
+
+  /* ---------- iconos / chips ---------- */
+  --sidebar-icon-bg: rgba(255,255,255,0.08);
+  --sidebar-icon-size: 36px;
+
+  --color-primary-500-hover: #432172;
+
+  --color-primary-over-700: #432172;
+
+
+  /* --- Paleta primaria basada en #432172 --- */
+  --color-primary-700: #693fa0; /* active / más oscuro */
+  --color-primary-600: #7c4fc0; /* hover */
+  --color-primary-500: #8e5ed1; /* base (tu color) */
+  --color-primary-400: #9d6de0; /* foco / variantes */
+  --color-primary-300: #b58cf0;
+  --color-primary-200: #d6c3fb;
+  --color-primary-100: #f6f3ff; /* fondo suave / usos muy claros */
+
+  --on-primary-500: #ffffff; /* texto sobre primary (alto contraste) */
+
+  /* --- Neutrales / fondo / textos --- */
+  --neutral-900: #0f1720;
+  --neutral-800: #1f2937;
+  --neutral-700: #374151;
+  --neutral-500: #6b7280;
+  --neutral-300: #d1d5db;
+  --neutral-100: #f3f4f6;
+  --color-blanco: #ffffff;
+  --fondo-contenido: #ffffff;
+
+  /* --- Acciones semánticas --- */
+  --success-600: #2b9b94; /* boton crear - hover/active */
+  --success-500: #45bbaf; /* boton crear (original) */
+  --success-300: #8fe2da;
+
+  --danger-600: #b71c1c;
+  --danger-500: #e53935;
+  --warning-500: #ffb020;
+  --info-500: #2b8cff;
+
+  /* --- Estados y utilidades --- */
+  --focus-ring: rgba(113, 56, 193, 0.18); /* suave halo de foco (usa primary-200) */
+  --disabled-bg: #f3f4f6;
+  --disabled-text: #9ca3af;
+
+  /* botones (mapeo semántico para compatibilidad con tu css existente) */
+  --boton-crear: var(--success-500);
+  --boton-crear-hover: var(--success-600);
+
+  /* legacy / compat */
+  --color-primary-over-700: var(--color-primary-700);
+
+   /* CTAs */
+  --cta-primary: var(--color-primary-600);         /* botón Registrar (recomendado) */
+  --cta-primary-hover: var(--color-primary-700);
+  --cta-contrast: white;
+
+  --color-text-500:#432172;
+
+
+   font-size: clamp(14px, 1.5vw, 16px);
+}
+

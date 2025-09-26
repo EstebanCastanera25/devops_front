@@ -1,0 +1,43 @@
+<!-- GRUPO (tiene hijos) -->
+<ng-container *ngIf="item?.children?.length; else leaf">
+  <button mat-list-item class="menu-list-item group"
+          *ngIf="!collapsed"
+          (click)="toggleGroup()"
+          [attr.aria-expanded]="expanded"
+          type="button">
+    <i-tabler class="routeIcon" [name]="item.iconName || 'folder'"></i-tabler>
+    <span class="label">{{ item.displayName }}</span>
+    <span class="spacer"></span>
+    <mat-icon>{{ expanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+  </button>
+
+  <div class="submenu" *ngIf="expanded && !collapsed">
+    <a mat-list-item class="submenu-item"
+       *ngFor="let child of item.children"
+       [routerLink]="child.route"
+       routerLinkActive="active">
+      <i-tabler class="routeIcon small" [name]="child.iconName || 'point'"></i-tabler>
+      <span id="label">{{ child.displayName }}</span>
+    </a>
+  </div>
+</ng-container>
+
+<!-- LEAF (link directo) -->
+<ng-template #leaf>
+  <a mat-list-item class="menu-list-item"
+     *ngIf="!collapsed && item.route"
+     [routerLink]="item.route"
+     routerLinkActive="active">
+    <i-tabler class="routeIcon" [name]="item.iconName || 'dot'"></i-tabler>
+    <span class="label">{{ item.displayName }}</span>
+  </a>
+
+  <!-- Link externo opcional -->
+  <a mat-list-item class="menu-list-item"
+     *ngIf="!collapsed && !item.route && item.external"
+     [href]="item.route"
+     [attr.target]="item.target || '_blank'">
+    <i-tabler class="routeIcon" [name]="item.iconName || 'link'"></i-tabler>
+    <span class="label">{{ item.displayName }}</span>
+  </a>
+</ng-template>
