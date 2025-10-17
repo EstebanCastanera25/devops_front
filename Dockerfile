@@ -1,23 +1,34 @@
-# Dockerfile para Frontend Angular (sin nginx.conf externo)
+¡Perfecto! Veo que tu proyecto se llama "modernize" y usa Angular 17. Ahora necesitamos ajustar el Dockerfile porque Angular genera los archivos en dist/modernize.
+Dockerfile correcto para tu proyecto:
 
-# Etapa 1: Build
+En GitHub, abre el archivo "Dockerfile"
+Haz clic en el icono de lápiz (editar)
+Reemplázalo con este contenido:
+
+dockerfile# Dockerfile para Angular - Modernize
 FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Copiar package files
 COPY package*.json ./
-RUN npm install
 
+# Instalar dependencias
+RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+
+# Copiar código fuente
 COPY . .
-RUN npm run build --prod
 
-# Etapa 2: Producción con Nginx
+# Build para producción
+RUN npm run build
+
+# Etapa 2: Nginx
 FROM nginx:alpine
 
-# Copiar los archivos build de Angular a nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copiar archivos build de Angular (dist/modernize)
+COPY --from=builder /app/dist/modernize/browser /usr/share/nginx/html
 
-# Crear configuración nginx inline
+# Configuración nginx inline
 RUN echo 'server { \n\
     listen 80; \n\
     server_name localhost; \n\
@@ -25,6 +36,10 @@ RUN echo 'server { \n\
     index index.html; \n\
     location / { \n\
         try_files $uri $uri/ /index.html; \n\
+    } \n\
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ { \n\
+        expires 1y; \n\
+        add_header Cache-Control "public, immutable"; \n\
     } \n\
 }' > /etc/nginx/conf.d/default.conf
 
