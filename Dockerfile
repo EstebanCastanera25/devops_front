@@ -30,11 +30,6 @@ RUN ls -la && \
     echo "Verificando angular.json:" && \
     test -f angular.json && echo "✓ angular.json encontrado" || echo "✗ angular.json NO encontrado"
 
-# *** HARDCODEAR la URL correcta durante el build ***
-RUN sed -i "s|'https://devops-back-zif0.onrender.com/api'|'/api'|g" src/environments/environment.ts
-RUN sed -i "s|'https://devops-back-zif0.onrender.com/api'|'/api'|g" src/environments/environment.prod.ts
-RUN sed -i "s|'https://devops-back-zif0.onrender.com/api'|'/api'|g" src/environments/environment.ts
-RUN sed -i "s|'https://devops-back-zif0.onrender.com/api'|'/api'|g" src/environments/environment*.ts
 
 # Verificar que cambió
 RUN echo "=== Verificando environments ===" && \
