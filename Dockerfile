@@ -1,16 +1,14 @@
-FROM node:18 AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-ENV NODE_OPTIONS=--max-old-space-size=4096
-
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps
+RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps --force
 
 COPY . .
 
-RUN npm run build -- --configuration production
+RUN npm run build
 
 FROM nginx:alpine
 
