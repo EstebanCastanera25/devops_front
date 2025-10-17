@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    backendBaseUrl: 'http://localhost:5300/api'
+    backendBaseUrl: 'https://devops-back-zif0.onrender.com/api'
   };
   
