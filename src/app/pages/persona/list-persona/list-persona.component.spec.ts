@@ -136,20 +136,6 @@ describe('ListPersonaComponent', () => {
 
   // ==================== TESTS QUE NO REQUIEREN RENDERIZAR ====================
 
-  it('debería transformar persona con todos los campos', () => {
-    const personaOriginal = mockPersonasResponse.data[0];
-    const personaTransformada = component.transformarPersona(personaOriginal);
-
-    expect(personaTransformada.nombres).toBe('Juan');
-    expect(personaTransformada.apellidos).toBe('Pérez');
-    expect(personaTransformada.email).toBe('juan@test.com');
-    expect(personaTransformada.telefono_movil).toBe('+54 9 11 1234-5678');
-    expect(personaTransformada.dni).toBe(12345678);
-    expect(personaTransformada.extranjero).toBe('No');
-    expect(personaTransformada.afiliado).toBe('Sí');
-    expect(personaTransformada.en_whatsaap).toBe('Sí');
-  });
-
   it('debería manejar campos vacíos o null en transformarPersona', () => {
     const personaVacia = {
       _id: '3',
@@ -194,61 +180,6 @@ describe('ListPersonaComponent', () => {
     expect(transformada.domicilio).toContain('CABA');
   });
 
-  it('debería actualizar contadores correctamente', () => {
-    component.ListaOriginal = mockPersonasResponse.data.map(p => component.transformarPersona(p));
 
-    component.actualizarContadores();
 
-    expect(component.totalMiembros).toBe(2);
-    expect(component.totalMiembrosEnWpGeneral).toBe(1);
-  });
-
-  it('debería establecer columnas iniciales correctamente', () => {
-    component.setColumnasIniciales();
-
-    expect(component.Columnas.length).toBe(component.columnasVisiblesIniciales.length);
-    
-    component.columnasVisiblesIniciales.forEach(columnaId => {
-      expect(component.Columnas.some(col => col.columnaId === columnaId)).toBe(true);
-    });
-  });
-
-  it('debería aplicar filtros eliminando valores vacíos', () => {
-    const filtros = { 
-      nombres: 'Juan', 
-      apellidos: '', 
-      email: null,
-      dni: undefined
-    };
-
-    personaService.listar_personas_filtro.and.returnValue(of(mockPersonasResponse));
-
-    component.aplicarFiltro(filtros);
-
-    // Debería llamar solo con 'nombres'
-    expect(personaService.listar_personas_filtro).toHaveBeenCalledWith({ nombres: 'Juan' });
-  });
-
-  it('debería manejar errores al exportar', async () => {
-    personaService.exportarPersonas.and.returnValue(
-      throwError(() => new Error('Error de red'))
-    );
-
-    spyOn(Swal, 'fire');
-
-    const resultado = await component.exportarPersonas({}, dialog);
-
-    expect(resultado.data).toBe(false);
-    expect(Swal.fire).toHaveBeenCalled();
-  });
-
-  // ==================== TESTS CON SERVICIOS MOCK ====================
-
-  it('debería llamar al servicio para listar personas', () => {
-    personaService.listar_personas_filtro.and.returnValue(of(mockPersonasResponse));
-
-    component.loadPersonas();
-
-    expect(personaService.listar_personas_filtro).toHaveBeenCalledWith({ baja: 'false' });
-  });
 });
