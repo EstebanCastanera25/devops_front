@@ -14,23 +14,6 @@ RUN ls -la && \
     echo "Verificando angular.json:" && \
     test -f angular.json && echo "✓ angular.json encontrado" || echo "✗ angular.json NO encontrado"
 
-
-FROM node:18-alpine AS builder
-
-# Instalar Angular CLI
-RUN npm install -g @angular/cli
-
-WORKDIR /app
-
-# Copiar código del frontend desde el contexto  
-COPY . ./
-
-# Verificar que tenemos los archivos necesarios
-RUN ls -la && \
-    echo "Verificando angular.json:" && \
-    test -f angular.json && echo "✓ angular.json encontrado" || echo "✗ angular.json NO encontrado"
-
-
 # Verificar que cambió
 RUN echo "=== Verificando environments ===" && \
     cat src/environments/environment.ts && \
@@ -46,7 +29,6 @@ RUN ls -la dist/ && echo "Build completado exitosamente"
 
 # Etapa final - con NGINX sirviendo estáticos
 FROM nginx:alpine AS production
-
 
 # Copiar SOLO los archivos estáticos (sin nginx)
 COPY --from=builder /app/dist/modernize /usr/share/nginx/html
