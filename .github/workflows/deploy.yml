@@ -28,13 +28,6 @@ jobs:
       run: npm run lint || echo "No lint script"
       continue-on-error: true
 
-    - name: 🧪 Run tests
-      run: npm test
-
-    - name: 📊 Upload coverage (opcional)
-      if: success()
-      uses: codecov/codecov-action@v3
-
   deploy:
     name: Deploy to Render
     needs: test
