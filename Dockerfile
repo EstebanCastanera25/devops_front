@@ -41,5 +41,5 @@ FROM nginx:alpine AS production
 COPY --from=builder /app/dist/modernize /usr/share/nginx/html
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]'|'/api'|g" src/environments/environment.ts
+CMD ["nginx", "-g", "daemon off;"]
 
