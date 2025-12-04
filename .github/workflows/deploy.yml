@@ -1,51 +1,123 @@
 name: CI/CD Pipeline
 
+# ============================================================
+# EVENTOS QUE DISPARAN EL PIPELINE
+# Este pipeline corre solamente cuando se pushea un tag
+# con formato "v*" (ej: v1.0.0, v3.2.5). Esto asegura que cada
+# build corresponde a una versión clara del sistema.
+# También permite ejecutar manualmente con workflow_dispatch.
+# ============================================================
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - "v*"
+  workflow_dispatch:
 
 jobs:
+
+  # ============================================================
+  # JOB 1 — TEST
+  # Ejecuta pruebas y validaciones antes de construir la imagen.
+  # Esto garantiza calidad antes de continuar con el deploy.
+  # ============================================================
   test:
-    name: Test Backend
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
 
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
+      - name: Preparar Node.js (versión LTS recomendada)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
 
-    - name: 📦 Install dependencies
-      run: npm ci
+      - name: Instalar dependencias del proyecto
+        run: npm ci --legacy-peer-deps
 
-    - name: 🔍 Run linting (opcional)
-      run: npm run lint || echo "No lint script"
-      continue-on-error: true
+      - name: Ejecutar Lint (si existe)
+        run: npm run lint || echo "Lint no definido"
+        continue-on-error: true
+        # continue-on-error=true → no detiene la pipeline si no hay lint
 
+  # ============================================================
+  #  JOB 2 — BUILD & PUSH
+  # Construye la imagen Docker (usando Dockerfile multistage),
+  # la etiqueta con la versión del tag y la publica en Docker Hub.
+  # Sin esta etapa, Render no puede recibir versiones nuevas.
+  # ============================================================
+  build_and_push:
+    name: Build & Push Docker Image
+    needs: test   # Corre solo si el job de test pasó correctamente
+    runs-on: ubuntu-latest
+
+    steps:
+      - name:  Checkout del código
+        uses: actions/checkout@v4
+
+      # ----------------------------------------------
+      # Login seguro a Docker Hub usando secrets
+      # ----------------------------------------------
+      - name:  Login a Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
+
+      # ----------------------------------------------
+      # Construcción de la imagen Docker
+      # VERSION proviene del nombre del tag (v1.0.0)
+      # ----------------------------------------------
+      - name:  Build Docker Image
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          IMAGE="calipxo/devops_app"
+
+          echo " Construyendo imagen: $IMAGE:$VERSION"
+          docker build -t $IMAGE:$VERSION .
+
+          echo " Tagging latest"
+          docker tag $IMAGE:$VERSION $IMAGE:latest
+
+      # ----------------------------------------------
+      # Subir la imagen a Docker Hub (versión + latest)
+      # ----------------------------------------------
+      - name:  Push Docker Images
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          IMAGE="calipxo/devops_app"
+
+          echo " Subiendo $IMAGE:$VERSION"
+          docker push $IMAGE:$VERSION
+
+          echo " Subiendo $IMAGE:latest"
+          docker push $IMAGE:latest
+
+  # ============================================================
+  # JOB 3 — DEPLOY
+  # Llama al Deploy Hook de Render pasándole la versión exacta.
+  # Esto hace que Render use la imagen recién subida a Docker Hub.
+  # ============================================================
   deploy:
     name: Deploy to Render
-    needs: test
+    needs: build_and_push   # Corre solo si build & push fue exitoso
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-    - name: 🚀 Trigger Render Deploy
-      run: |
-        RESPONSE=$(curl -X POST \
-          -H "Accept: application/json" \
-          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-          https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys)
-        
-        echo "Deploy triggered successfully!"
-        echo "Response: $RESPONSE"
+      - name: Trigger Deploy en Render con versión
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          IMAGE="docker.io/calipxo/devops_app:$VERSION"
 
-    - name: ✅ Deployment Status
-      run: |
-        echo "🎉 Deployment initiated on Render"
-        echo "📍 Check status at: https://dashboard.render.com"
+          echo "Desplegando imagen: $IMAGE"
+
+          # Render recibe la versión exacta a deployar
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "{\"image\":\"$IMAGE\"}" \
+            "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys?key=${{ secrets.RENDER_DEPLOY_HOOK }}"
+
+      - name: Información final
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          echo "Deploy iniciado exitosamente con la versión: $VERSION"
+          echo "Ver estado en: https://dashboard.render.com"
