@@ -70,7 +70,7 @@ jobs:
       - name:  Build Docker Image
         run: |
           VERSION="${GITHUB_REF#refs/tags/}"
-          IMAGE="calipxo/devops_app"
+          IMAGE="calipxo/frontend-devops"
 
           echo " Construyendo imagen: $IMAGE:$VERSION"
           docker build -t $IMAGE:$VERSION .
@@ -84,7 +84,7 @@ jobs:
       - name:  Push Docker Images
         run: |
           VERSION="${GITHUB_REF#refs/tags/}"
-          IMAGE="calipxo/devops_app"
+          IMAGE="calipxo/frontend-devops"
 
           echo " Subiendo $IMAGE:$VERSION"
           docker push $IMAGE:$VERSION
@@ -106,7 +106,7 @@ jobs:
       - name: Trigger Deploy en Render con versión
         run: |
           VERSION="${GITHUB_REF#refs/tags/}"
-          IMAGE="docker.io/calipxo/devops_app:$VERSION"
+          IMAGE="docker.io/calipxo/frontend-devops:$VERSION"
 
           echo "Desplegando imagen: $IMAGE"
 
